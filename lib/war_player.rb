@@ -17,6 +17,14 @@ class WarPlayer
     !cards.empty? || !winnings.empty?
   end
 
+  def take_into_hand(new_cards)
+    if new_cards.kind_of?(Array)
+      winnings.push(*new_cards.compact)
+    elsif new_cards
+      winnings.push(new_cards)
+    end
+  end
+
   def take(new_cards)
     if new_cards.kind_of?(Array)
       winnings.push(*new_cards.compact)

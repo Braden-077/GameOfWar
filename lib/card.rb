@@ -10,11 +10,11 @@ class Card
   end
 
   def suit
-    SUITS.include?(@suit) ? @suit : 'This is not a valid suit.'
+    SUITS.include?(@suit) ? @suit : 'This is an invalid suit.'
   end
 
   def rank
-    RANKS.include?(@rank) ? @rank : 'This is not a valid rank.'
+    RANKS.include?(@rank) ? @rank : 'This is an invalid rank.'
   end
 
   def value

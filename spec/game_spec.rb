@@ -5,6 +5,7 @@ require 'war_player'
 require 'game'
 
 describe Game do
+  subject(:game) { Game.new(players) }
   let(:players) do
     [
       WarPlayer.new([]),
@@ -27,7 +28,6 @@ describe Game do
   end
 
   describe '#deal' do
-    subject(:game) { Game.new(players) }
 
     it 'shuffles and distributes equal number cards to each player' do
       expect(players.first.cards.count).to eq 0

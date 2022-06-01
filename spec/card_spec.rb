@@ -24,12 +24,12 @@ describe Card do
   end
 
   it 'does not allow for an invalid suit' do
-    card = Card.new('Bruh', 'J')
-    expect(card.suit).to eq 'This is not a valid suit.'
+    card = Card.new('INVALID', 'J')
+    expect(card.suit).to eq 'This is an invalid suit.'
   end
 
   it 'does not allow for an invalid rank' do
-    card = Card.new('S', 'Bruh')
-    expect(card.rank).to eq 'This is not a valid rank.'
+    card = Card.new('S', 'INVALID')
+    expect(card.rank).to eq 'This is an invalid rank.'
   end
 end
