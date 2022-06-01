@@ -13,16 +13,16 @@ class WarPlayer
     @name
   end
 
-  def has_cards?
-    !cards.empty? || !winnings.empty?
+  def cards
+    @cards
   end
 
-  def take_into_hand(new_cards)
-    if new_cards.kind_of?(Array)
-      winnings.push(*new_cards.compact)
-    elsif new_cards
-      winnings.push(new_cards)
-    end
+  def winnings
+    @winnings
+  end
+
+  def has_cards?
+    !cards.empty? || !winnings.empty?
   end
 
   def take(new_cards)
@@ -33,7 +33,11 @@ class WarPlayer
     end
   end
 
-  def play
-    
+  def play(num_cards=1)
+    if cards.empty?
+      @cards = winnings.shuffle
+      @winnings = []
+    end
+    num_cards == 1 ? cards.shift : cards.shift(num_cards)
   end
 end 

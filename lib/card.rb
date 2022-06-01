@@ -4,17 +4,19 @@ class Card
   SUITS = ['C', 'H', 'D', 'S']
   RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
-  def initialize(suit, rank)
-    @suit = suit
-    @rank = rank
+  def initialize(rank, suit)
+    if RANKS.include?(rank) && SUITS.include?(suit)
+      @rank = rank 
+      @suit = suit
+    end
   end
 
   def suit
-    SUITS.include?(@suit) ? @suit : 'This is an invalid suit.'
+    @suit
   end
 
   def rank
-    RANKS.include?(@rank) ? @rank : 'This is an invalid rank.'
+    @rank
   end
 
   def value
