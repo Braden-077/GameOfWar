@@ -20,34 +20,28 @@ class Game
     end
   end
 
-  def play_round
-    tied_winnings = []
-    compare_round_cards(tied_winnings)
-  end
-
   def winner
     players.delete_if {|player| player.cards.length == 0} 
     players.length == 1 ? (players.first) : nil 
   end
 
-  def compare_round_cards(tied_winnings)
-    card1 = players.first.play
-    card2 = players.last.play
-    if card1.nil?
-      players.last.take([card1, card2])
-      tied_winnings.each { |card| players.last.take(card) }
-    elsif card2.nil?
-      players.first.take([card2, card1])
-      tied_winnings.each { |card| players.first.take(card) }
-    elsif card1.value > card2.value
-      players.first.take([card2, card1])
-      tied_winnings.each { |card| players.first.take(card) }
+  def round_message(winner, winning_card, loser, losing_card)
+    "#{winner.name} played #{winning_card.rank} and beat #{loser.name} who played #{losing_card.rank}. #{players.first.cards.count}/#{players.last.cards.count}"
+  end
+
+  def give_winnings(player, card1, card2, tied_winnings=[], loser)
+    player.take(*tied_winnings.push(card1, card2).shuffle!)
+    round_message(player, card1, loser, card2)
+  end
+
+  def play_round(tied_winnings = [])
+    card1, card2 = players.first.play, players.last.play
+    return if card1.nil? || card2.nil?
+    if card1.value > card2.value
+      give_winnings(players.first, card1, card2, tied_winnings, players.last)
     elsif card1.value < card2.value
-      players.last.take([card1, card2])
-      tied_winnings.each { |card| players.last.take(card) }
-    else 
-      tied_winnings = Array(tied_winnings).push([card1, card2])
-      compare_round_cards(tied_winnings)
+      give_winnings(players.last, card1, card2, tied_winnings, players.last)
+    else (tied_winnings.push(card1, card2) ; play_round(tied_winnings))
     end
   end
 end

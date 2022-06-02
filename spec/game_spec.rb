@@ -60,5 +60,13 @@ describe Game do
       game.play_round
       expect(game.winner.name).to eq 'Braden'
     end
+
+    it 'give\'s the round winner\'s name as expected' do
+      game = Game.new([WarPlayer.new([Card.new('A', 'S')], 'Jeremy'), WarPlayer.new([Card.new('K', 'S')], 'Ken')])
+      jeremy = game.players.first
+      ken = game.players.last
+      expect(game.round_message(jeremy.name, jeremy.cards[0].rank, ken.name, ken.cards[0].rank)).to eq 'Jeremy played A and beat Ken who played K.'
+      game.play_round
+    end 
   end
 end  

@@ -12,15 +12,11 @@ class WarPlayer
     !cards.empty?
   end
 
-  def take(new_cards)
+  def take(*new_cards)
     cards.push(*Array(new_cards))
   end
 
   def play
-    if cards.empty? 
-      nil
-    else
-      cards.pop
-    end
+    cards.shift
   end
 end 

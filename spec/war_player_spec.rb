@@ -28,7 +28,7 @@ describe WarPlayer do
       player = WarPlayer.new(cards)
       card = player.play
       expect(player.cards.length).to eq 1
-      expect(card).to eq Card.new('A', 'C')
+      expect(card).to eq Card.new('A', 'S')
     end
 
     it 'raises an error when no cards in hand' do
@@ -59,7 +59,7 @@ describe WarPlayer do
     it 'takes multiple cards' do
       cards = [Card.new('Q', 'D'), Card.new('7', 'S'), Card.new('9', 'C')]
       player = WarPlayer.new
-      player.take(cards)
+      player.take(*cards)
       
       expect(player.cards).to match_array cards
     end
