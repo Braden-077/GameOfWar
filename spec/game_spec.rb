@@ -6,6 +6,13 @@ require 'game'
 require 'pry'
 
 describe Game do
+    let(:player1) do
+      WarPlayer.new
+    end
+
+    let(:player2) do
+      WarPlayer.new
+    end
   describe '#initialize' do
     subject(:game) { Game.new(players) }
     let(:players) do
@@ -19,9 +26,9 @@ describe Game do
       expect { Game.new(players) }.not_to raise_error
     end
     
-    it 'defaults players to empty list if none are provided' do
+    it 'should not default players to empty list if none are provided' do
       game = Game.new
-      expect(game.players).to eq []
+      expect(game.players).not_to eq []
     end
     
     it 'has a list of players' do
@@ -32,11 +39,26 @@ describe Game do
   end
   describe '#start' do
     it 'deals all the cards when the game is started' do
-      game = Game.new([WarPlayer.new, WarPlayer.new])
+      game = Game.new([player1, player2])
       game.start
-      expect(game.deck.cards_left).to eq 0
+      expect(game.deck.cards_left).to be_zero
       expect(game.players[0].cards.length).to eq 26
       expect(game.players[1].cards.length).to eq 26
+    end
+  end
+  describe '#play_round' do
+    it 'makes sure players don\'t have the same amount of cards as when dealt' do
+      game = Game.new([WarPlayer.new([Card.new('K', 'S')], 'Josh'), WarPlayer.new([Card.new('A', 'S')], 'Braden')])
+      game.play_round
+      expect(game.winner.name).to eq 'Braden'
+      expect(game.players.first.cards.length).to eq 2
+    end
+  end
+  describe '#winner' do 
+    it 'gives us the expected winner\'s name back' do
+      game = Game.new([WarPlayer.new([Card.new('K', 'S')], 'Josh'), WarPlayer.new([Card.new('A', 'S')], 'Braden')])
+      game.play_round
+      expect(game.winner.name).to eq 'Braden'
     end
   end
 end  

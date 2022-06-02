@@ -39,8 +39,9 @@ describe Deck do
 
     it 'deals one card to a player when expected to' do
       deck = Deck.new
-      deck.deal
+      card = deck.deal
       expect(deck.cards_left).to eq 51
+      expect(card).to eq Card.new('2', 'C')
     end
   end
 end

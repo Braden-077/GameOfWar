@@ -17,7 +17,7 @@ class Deck
   end
 
   def deal
-    cards.pop
+    cards.shift
   end
 
   private

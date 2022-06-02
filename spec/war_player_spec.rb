@@ -24,6 +24,27 @@ describe WarPlayer do
 
   describe '#play' do
     it 'expects a player to put out their first card' do
+      cards = [Card.new('A', 'S'), Card.new('A', 'C')]
+      player = WarPlayer.new(cards)
+      card = player.play
+      expect(player.cards.length).to eq 1
+      expect(card).to eq Card.new('A', 'C')
+    end
+
+    it 'raises an error when no cards in hand' do
+      player = WarPlayer.new
+      expect(player.cards.length).to be_zero
+      error = player.play
+      expect(error).to be_nil
+    end
+
+    it 'describes the value when no card is present' do
+      player = WarPlayer.new([Card.new('A', 'S')])
+      expect(player.cards.length).to eq 1
+      expect(player.play).to eq Card.new('A', 'S')
+      player.play
+      expect(player.cards.length).to eq 0
+      expect(player.play).to be_nil
     end
   end
 
@@ -32,8 +53,7 @@ describe WarPlayer do
       cards = [Card.new('Q', 'D'), Card.new('7', 'S'), Card.new('9', 'C')]
       player = WarPlayer.new([cards[0], cards[1]])
       player.take(cards[2])
-      expect(player.cards).to eq [cards[0], cards[1]]
-      expect(player.winnings).to eq [cards[2]]
+      expect(player.cards).to eq cards
     end
     
     it 'takes multiple cards' do
@@ -41,15 +61,14 @@ describe WarPlayer do
       player = WarPlayer.new
       player.take(cards)
       
-      expect(player.winnings).to match_array cards
+      expect(player.cards).to match_array cards
     end
     
-    it 'adds cards to winnings' do
+    it 'adds cards to the hand' do
       player = WarPlayer.new
       card = Card.new('5', 'C')
       player.take(card)
-      expect(player.cards).to be_empty
-      expect(player.winnings).to eq([card])
+      expect(player.cards).to eq([card])
     end
   end
 end
