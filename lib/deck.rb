@@ -1,7 +1,9 @@
 # frozen_string_literal: true 
 
+require_relative 'card'
+
 class Deck
-  attr_reader :cards
+  attr_accessor :cards 
   def initialize(cards = build_deck)
     @cards = cards
   end
@@ -15,6 +17,7 @@ class Deck
   end
 
   def deal
+    cards.pop
   end
 
   private

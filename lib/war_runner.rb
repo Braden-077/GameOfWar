@@ -1,6 +1,6 @@
-require_relative 'war_game'
+require_relative 'game'
 
-game = WarGame.new
+game = Game.new
 game.start
 until game.winner do
   puts game.play_round

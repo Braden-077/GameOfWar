@@ -4,19 +4,12 @@ class Card
   SUITS = ['C', 'H', 'D', 'S']
   RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
+  attr_accessor :rank, :suit
   def initialize(rank, suit)
     if RANKS.include?(rank) && SUITS.include?(suit)
       @rank = rank 
       @suit = suit
     end
-  end
-
-  def suit
-    @suit
-  end
-
-  def rank
-    @rank
   end
 
   def value

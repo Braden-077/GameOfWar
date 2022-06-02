@@ -25,9 +25,22 @@ describe Deck do
 
     it 'should be able to shuffle itself' do
       deck = Deck.new 
+      # This tests the actual array of cards.
       expect(deck.cards).to receive(:shuffle!).and_call_original
       
       deck.shuffle!
+    end
+  end
+  describe '#deal' do
+    it 'starts with 52 cards' do
+      deck = Deck.new 
+      expect(deck.cards_left).to eq 52
+    end
+
+    it 'deals one card to a player when expected to' do
+      deck = Deck.new
+      deck.deal
+      expect(deck.cards_left).to eq 51
     end
   end
 end
